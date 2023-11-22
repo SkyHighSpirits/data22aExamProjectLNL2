@@ -23,6 +23,7 @@ public class Poster
         this.service = service;
         this.poster_Title = poster_Title;
         this.poster_Description = poster_Description;
+        
     }
 
     public int getId()
