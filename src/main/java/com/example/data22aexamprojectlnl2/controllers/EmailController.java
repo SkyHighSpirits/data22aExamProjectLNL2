@@ -1,4 +1,4 @@
-package com.example.data22aexamprojectlnl2.controller;
+package com.example.data22aexamprojectlnl2.controllers;
 
 import com.example.data22aexamprojectlnl2.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
