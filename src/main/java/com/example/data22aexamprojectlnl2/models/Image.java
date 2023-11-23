@@ -3,7 +3,7 @@ package com.example.data22aexamprojectlnl2.models;
 import jakarta.persistence.*;
 
 @Entity
-public class Images
+public class Image
 {   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -13,11 +13,11 @@ public class Images
     private String img;
 
 
-    public Images(){
+    public Image(){
 
     }
 
-    public Images(int id, Poster poster, String img)
+    public Image(int id, Poster poster, String img)
     {
         this.id = id;
         this.poster = poster;
