@@ -1,6 +1,6 @@
 package com.example.data22aexamprojectlnl2.controller;
 
-import com.example.data22aexamprojectlnl2.service.EmailService;
+import com.example.data22aexamprojectlnl2.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
