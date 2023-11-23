@@ -13,8 +13,8 @@ public class EmailService {
     LocalTime lastRequestTime;
     private long timepassed = 0;
 
-    //ratelimit set to one request pr 10 seconds globaly
-    private long ratelimit = 10000;
+    //ratelimit set to one request pr 3 seconds globally
+    private long ratelimit = 3000;
 
     private final JavaMailSender javaMailSender;
 
@@ -24,7 +24,7 @@ public class EmailService {
 
     public void sendEmail(String to, String subject, String body) {
 
-        LocalTime now = java.time.LocalTime.now();
+        LocalTime now = LocalTime.now();
 
         if(lastRequestTime != null)
         {
@@ -53,6 +53,8 @@ public class EmailService {
 
                 // Send the email using the JavaMailSender
                 javaMailSender.send(message);
+                //save the last timestamp for when a message was sent
+                lastRequestTime = LocalTime.now();
             } catch (Exception e) {
                 // Handle exceptions and log errors
                 // You can log the error message using a logging framework like Log4j or SLF4J
