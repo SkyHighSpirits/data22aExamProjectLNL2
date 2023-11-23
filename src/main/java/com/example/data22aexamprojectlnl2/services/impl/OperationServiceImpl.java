@@ -28,32 +28,17 @@ public class OperationServiceImpl implements OperationService {
 
      */
     @Override
-    public Optional<Operation> getYdelseById(int id) {
+    public Optional<Operation> getOperationById(int id) {
         return operationRepository.findById(id);
     }
 
     @Override
-    public List<Operation> getAllYdelser() {
+    public List<Operation> getAllOperations() {
         return operationRepository.findAll();
     }
 
     @Override
-    public void deleteYdelse(int id) {
-        operationRepository.deleteById(id);
-    }
-
-    @Override
     public Operation saveOperation(Operation operation) {
-        return null;
-    }
-
-    @Override
-    public Optional<Operation> getOperationById(int id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Operation> getAllOperations() {
         return null;
     }
 
