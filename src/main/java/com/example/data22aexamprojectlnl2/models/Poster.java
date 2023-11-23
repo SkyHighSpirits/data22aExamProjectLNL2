@@ -9,7 +9,7 @@ public class Poster
     private int id;
     @OneToOne
     @JoinColumn(name = "service_id", unique = true) // sætter foreign key, fortæller hvad den hedder i databasen, og siger at den SKAL være unik
-    private Service service;
+    private Operations operations;
     private String poster_Title;
     private String poster_Description;
 
@@ -17,10 +17,10 @@ public class Poster
 
     }
 
-    public Poster(int id, Service service, String poster_Title, String poster_Description)
+    public Poster(int id, Operations operations, String poster_Title, String poster_Description)
     {
         this.id = id;
-        this.service = service;
+        this.operations = operations;
         this.poster_Title = poster_Title;
         this.poster_Description = poster_Description;
 
@@ -36,14 +36,14 @@ public class Poster
         this.id = id;
     }
 
-    public Service getService()
+    public Operations getService()
     {
-        return service;
+        return operations;
     }
 
-    public void setService(Service service)
+    public void setService(Operations operations)
     {
-        this.service = service;
+        this.operations = operations;
     }
 
     public String getPoster_Title()
