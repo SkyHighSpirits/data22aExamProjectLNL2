@@ -3,7 +3,7 @@ package com.example.data22aexamprojectlnl2.controllers;
 import com.example.data22aexamprojectlnl2.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmailController {
@@ -15,13 +15,19 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @GetMapping("/send-email")
-    public void sendEmail() {
-
+    @PostMapping("/send-email")
+    @ResponseBody
+    public void sendEmail(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String city,
+            @RequestParam String about,
+            @RequestParam String message) {
 
         String to = "dovser.chinastore@gmail.com";
-        String subject = "Hello from SMTP";
-        String body = "Nu kan vi sende mails med vores service";
+        String subject = about;
+        String body = message + "\n\nBeskeden blev sendt af " + name + " fra " + city +
+                "\nSvar kan sendes på hans email adresse: " + email + "\n";
 
         emailService.sendEmail(to, subject, body);
     }
