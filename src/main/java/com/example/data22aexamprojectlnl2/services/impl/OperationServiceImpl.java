@@ -19,11 +19,14 @@ public class OperationServiceImpl implements OperationService {
         this.operationRepository = operationRepository;
     }
 
+    /*
     @Override
     public Operation saveOperation(Operation operation) {
         return operationRepository.save(operation);
     }
+    */
 
+     */
     @Override
     public Optional<Operation> getYdelseById(int id) {
         return operationRepository.findById(id);
