@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors(corsCustomizer)
                 .authorizeRequests(authorize -> authorize
-                        .anyRequest().permitAll()
+                        .requestMatchers("/send-email").permitAll()
                 )
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults());
