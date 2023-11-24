@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 @Entity
-public class Operations
+public class Operation
 {   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int service_Id;
@@ -12,14 +12,14 @@ public class Operations
     private String service_Desription;
     private BigDecimal price;
 
-    @OneToOne(mappedBy = "service")
+    @OneToOne(mappedBy = "operation")
     private Poster poster;
 
-    public Operations(){
+    public Operation(){
 
     }
 
-    public Operations(int service_Id, String service_Name, String service_Desription, BigDecimal price)
+    public Operation(int service_Id, String service_Name, String service_Desription, BigDecimal price)
     {
         this.service_Id = service_Id;
         this.service_Name = service_Name;
