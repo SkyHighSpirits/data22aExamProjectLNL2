@@ -36,12 +36,12 @@ public class Poster
         this.id = id;
     }
 
-    public Operation getService()
+    public Operation getOperation()
     {
         return operation;
     }
 
-    public void setService(Operation operation)
+    public void setOperation(Operation operation)
     {
         this.operation = operation;
     }

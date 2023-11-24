@@ -12,7 +12,7 @@ public class Operation
     private String service_Desription;
     private BigDecimal price;
 
-    @OneToOne(mappedBy = "service")
+    @OneToOne(mappedBy = "operation")
     private Poster poster;
 
     public Operation(){
