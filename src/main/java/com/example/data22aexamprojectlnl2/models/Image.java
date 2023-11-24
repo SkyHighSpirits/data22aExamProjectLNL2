@@ -10,19 +10,21 @@ public class Image
     @OneToOne
     @JoinColumn(name = "poster_id")  // i tvivl om der skal oprettes en relation i Poster classen til det her da der ikke skal anvendes kald den anden vej
     private Poster poster;
-    private String img;
-
+    @Lob
+    @Column(length = 20971520)
+    private Byte[] byte_img;
 
     public Image(){
 
     }
 
-    public Image(int id, Poster poster, String img)
+    public Image(int id, Poster poster, Byte[] byte_img)
     {
         this.id = id;
         this.poster = poster;
-        this.img = img;
+        this.byte_img = byte_img;
     }
+    
 
     public int getId()
     {
@@ -44,13 +46,5 @@ public class Image
         this.poster = poster;
     }
 
-    public String getImg()
-    {
-        return img;
-    }
 
-    public void setImg(String img)
-    {
-        this.img = img;
-    }
 }
