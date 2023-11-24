@@ -1,5 +1,7 @@
 package com.example.data22aexamprojectlnl2.services;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 public class EmailService {
 
     LocalTime lastRequestTime;
-    private long timepassed = 0;
+    private long timepassed = 4;
 
     //ratelimit set to one request pr 3 seconds globally
     private long ratelimit = 3;
@@ -21,7 +23,7 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String to, String subject, String body) {
+    public ResponseEntity sendEmail(String to, String subject, String body) {
 
         LocalTime now = LocalTime.now();
 
@@ -54,11 +56,14 @@ public class EmailService {
                 javaMailSender.send(message);
                 //save the last timestamp for when a message was sent
                 lastRequestTime = LocalTime.now();
+                return new ResponseEntity<>(HttpStatus.OK);
             } catch (Exception e) {
                 // Handle exceptions and log errors
                 // You can log the error message using a logging framework like Log4j or SLF4J
                 e.printStackTrace();
             }
         }
+        return new ResponseEntity<>(HttpStatus.TOO_MANY_REQUESTS);
+
     }
 }
