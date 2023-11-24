@@ -23,10 +23,10 @@ class EmailServiceTest {
         //ratelimit set to one request pr 3 seconds globally
         long ratelimit = 3;
 
-        boolean allowSending = timepassed < ratelimit;
+        boolean disAllowSending = timepassed < ratelimit;
 
 
-        org.junit.jupiter.api.Assertions.assertFalse(allowSending);
+        org.junit.jupiter.api.Assertions.assertTrue(disAllowSending);
 
 
     }

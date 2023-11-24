@@ -30,7 +30,7 @@ public class EmailService {
             timepassed = lastRequestTime.until(now, ChronoUnit.SECONDS);
         }
 
-        if(timepassed < ratelimit)
+        if(timepassed > ratelimit)
         {
             try {
                 // Validate input parameters
