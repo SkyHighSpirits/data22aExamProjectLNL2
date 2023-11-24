@@ -12,17 +12,17 @@ public class Image
     private Poster poster;
     @Lob
     @Column(length = 20971520)
-    private Byte img;
+    private Byte[] byte_img;
 
     public Image(){
 
     }
 
-    public Image(int id, Poster poster, Byte img)
+    public Image(int id, Poster poster, Byte[] byte_img)
     {
         this.id = id;
         this.poster = poster;
-        this.img = img;
+        this.byte_img = byte_img;
     }
     
 
