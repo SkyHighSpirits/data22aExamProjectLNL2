@@ -13,6 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+
 @Configuration
 public class SecurityConfig {
 
@@ -30,7 +31,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors(corsCustomizer)
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers("/send-email").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults());

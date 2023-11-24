@@ -13,7 +13,7 @@ public class EmailService {
     private long timepassed = 0;
 
     //ratelimit set to one request pr 3 seconds globally
-    private long ratelimit = 3000;
+    private long ratelimit = 3;
 
     private final JavaMailSender javaMailSender;
 
@@ -27,7 +27,7 @@ public class EmailService {
 
         if(lastRequestTime != null)
         {
-            timepassed = lastRequestTime.until(now, ChronoUnit.MILLIS);
+            timepassed = lastRequestTime.until(now, ChronoUnit.SECONDS);
         }
 
         if(timepassed < ratelimit)
