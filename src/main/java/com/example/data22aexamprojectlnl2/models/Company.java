@@ -11,13 +11,19 @@ public class Company
     private int id;
     private String company_Title;
     private String company_Description;
-    private int CVR;
+    private String CVR;
+
+
+
+
+
+    private String telephone;
 
     public Company(){
 
     }
 
-    public Company(int id, String company_Title, String company_Description, int CVR)
+    public Company(int id, String company_Title, String company_Description, String CVR, String telephone)
     {
         this.id = id;
         this.company_Title = company_Title;
@@ -55,13 +61,21 @@ public class Company
         this.company_Description = company_Description;
     }
 
-    public int getCVR()
+    public String getCVR()
     {
         return CVR;
     }
 
-    public void setCVR(int CVR)
-    {
+    public void setCVR(String CVR) {
         this.CVR = CVR;
     }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
 }

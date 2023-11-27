@@ -19,7 +19,7 @@ public class initData implements CommandLineRunner
         {
             Company c1 = new Company();
             c1.setCompany_Title("Ilsø Construct");
-            c1.setCVR(12345678);
+            c1.setCVR("12345678");
             c1.setCompany_Description("Velkommen til Odin's Borg");
             c1.setId(1);
             System.out.println(c1);
