@@ -33,6 +33,10 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> getAllImages() {
         return imageRepository.findAll();
     }
+    @Override  //til at finde billeder der passer til en specifik post
+    public List<Image> getImagesByPosterId(int poster_id){
+        return imageRepository.getImagesByPosterId(poster_id);
+    }
 
     @Override
     public void deleteImage(int id) {

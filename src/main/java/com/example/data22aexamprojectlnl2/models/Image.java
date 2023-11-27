@@ -14,8 +14,8 @@ public class Image
     @Column(length = 20971520)
     private Byte[] byte_img;
 
-    public Image(){
-
+    public Image(Byte[] byte_img){
+        this.byte_img = byte_img;
     }
 
     public Image(int id, Poster poster, Byte[] byte_img)
@@ -24,7 +24,16 @@ public class Image
         this.poster = poster;
         this.byte_img = byte_img;
     }
-    
+
+    public Byte[] getByte_img()
+    {
+        return byte_img;
+    }
+
+    public void setByte_img(Byte[] byte_img)
+    {
+        this.byte_img = byte_img;
+    }
 
     public int getId()
     {
