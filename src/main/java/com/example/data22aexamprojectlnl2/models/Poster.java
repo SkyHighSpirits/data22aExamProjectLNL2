@@ -8,7 +8,7 @@ public class Poster
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
-    @JoinColumn(name = "service_id", unique = true) // sætter foreign key, fortæller hvad den hedder i databasen, og siger at den SKAL være unik
+    @JoinColumn(name = "Operation_id", unique = true) // sætter foreign key, fortæller hvad den hedder i databasen, og siger at den SKAL være unik
     private Operation operation;
     private String poster_Title;
     private String poster_Description;
@@ -36,12 +36,12 @@ public class Poster
         this.id = id;
     }
 
-    public Operation getService()
+    public Operation getOperation()
     {
         return operation;
     }
 
-    public void setService(Operation operation)
+    public void setOperation(Operation operation)
     {
         this.operation = operation;
     }
