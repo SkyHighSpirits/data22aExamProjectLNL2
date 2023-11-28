@@ -7,30 +7,34 @@ public class Image
 {   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "poster_id")  // i tvivl om der skal oprettes en relation i Poster classen til det her da der ikke skal anvendes kald den anden vej
     private Poster poster;
     @Lob
     @Column(length = 20971520)
-    private Byte[] byte_img;
+    private byte[] byte_img;
 
-    public Image(Byte[] byte_img){
+    public Image(){
+
+    }
+
+    public Image(byte[] byte_img){
         this.byte_img = byte_img;
     }
 
-    public Image(int id, Poster poster, Byte[] byte_img)
+    public Image(int id, Poster poster, byte[] byte_img)
     {
         this.id = id;
         this.poster = poster;
         this.byte_img = byte_img;
     }
 
-    public Byte[] getByte_img()
+    public byte[] getbyte_img()
     {
         return byte_img;
     }
 
-    public void setByte_img(Byte[] byte_img)
+    public void setByte_img(byte[] byte_img)
     {
         this.byte_img = byte_img;
     }

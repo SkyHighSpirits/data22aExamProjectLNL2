@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 public class Operation
 {   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int service_Id;
-    private String service_Name;
-    private String service_Desription;
+    private int Operation_Id;
+    private String Operation_Name;
+    private String Operation_Desription;
     private BigDecimal price;
 
     @OneToOne(mappedBy = "operation")
@@ -19,42 +19,42 @@ public class Operation
 
     }
 
-    public Operation(int service_Id, String service_Name, String service_Desription, BigDecimal price)
+    public Operation(int Operation_Id, String Operation_Name, String Operation_Desription, BigDecimal price)
     {
-        this.service_Id = service_Id;
-        this.service_Name = service_Name;
-        this.service_Desription = service_Desription;
+        this.Operation_Id = Operation_Id;
+        this.Operation_Name = Operation_Name;
+        this.Operation_Desription = Operation_Desription;
         this.price = price;
     }
 
-    public int getService_Id()
+    public int getOperation_Id()
     {
-        return service_Id;
+        return Operation_Id;
     }
 
-    public void setService_Id(int service_Id)
+    public void setOperation_Id(int Operation_Id)
     {
-        this.service_Id = service_Id;
+        this.Operation_Id = Operation_Id;
     }
 
-    public String getService_Name()
+    public String getOperation_Name()
     {
-        return service_Name;
+        return Operation_Name;
     }
 
-    public void setService_Name(String service_Name)
+    public void setOperation_Name(String Operation_Name)
     {
-        this.service_Name = service_Name;
+        this.Operation_Name = Operation_Name;
     }
 
-    public String getService_Desription()
+    public String getOperation_Desription()
     {
-        return service_Desription;
+        return Operation_Desription;
     }
 
-    public void setService_Desription(String service_Desription)
+    public void setOperation_Desription(String Operation_Desription)
     {
-        this.service_Desription = service_Desription;
+        this.Operation_Desription = Operation_Desription;
     }
 
     public BigDecimal getPrice()

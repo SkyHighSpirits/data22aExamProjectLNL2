@@ -1,6 +1,7 @@
 package com.example.data22aexamprojectlnl2.Config;
 
 import com.example.data22aexamprojectlnl2.models.Company;
+import com.example.data22aexamprojectlnl2.models.Image;
 import com.example.data22aexamprojectlnl2.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +25,8 @@ public class initData implements CommandLineRunner
             c1.setId(1);
             System.out.println(c1);
             companyRepository.save(c1);
+
+
 
 
         }
