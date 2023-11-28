@@ -1,12 +1,15 @@
 package com.example.data22aexamprojectlnl2.controllers;
 
 import com.example.data22aexamprojectlnl2.models.Image;
+import com.example.data22aexamprojectlnl2.models.Poster;
 import com.example.data22aexamprojectlnl2.repositories.ImageRepository;
 import com.example.data22aexamprojectlnl2.services.ImageService;
+import com.example.data22aexamprojectlnl2.services.PosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PosterController
@@ -22,6 +26,8 @@ public class PosterController
     ImageService imageService;
     @Autowired
     ImageRepository imageRepository;
+    @Autowired
+    PosterService posterService;
 
     @GetMapping("/getImages")
     public ResponseEntity<List<Image>> getAllImagesByPosterId(@RequestParam("poster_id") int poster_id)
@@ -52,5 +58,16 @@ public class PosterController
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving Image");
        }
     } //
+
+    @DeleteMapping("/deletePoster")
+    public ResponseEntity<String> deleterPosterByPosterId(@RequestParam("poster_id") int poster_id) {
+        Optional<Poster> checkPoster = posterService.getPosterById(poster_id);
+        if(checkPoster.isPresent()) {
+            posterService.deletePoster(poster_id);
+            return ResponseEntity.ok("Poster deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Poster not found");
+        }
+    }
 
 }
