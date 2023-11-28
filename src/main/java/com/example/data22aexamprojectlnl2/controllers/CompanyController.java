@@ -6,15 +6,18 @@ import com.example.data22aexamprojectlnl2.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
+@Controller
 public class CompanyController
 {
 
+    @Autowired
     CompanyService companyService;
 
     @PostMapping("/update-company")

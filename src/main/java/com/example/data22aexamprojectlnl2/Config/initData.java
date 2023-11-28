@@ -22,6 +22,7 @@ public class initData implements CommandLineRunner
             c1.setCVR("12345678");
             c1.setCompany_Description("Velkommen til Odin's Borg");
             c1.setId(1);
+            c1.setTelephone("12 34 56 78");
             System.out.println(c1);
             companyRepository.save(c1);
 
