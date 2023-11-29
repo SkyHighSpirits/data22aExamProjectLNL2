@@ -48,28 +48,6 @@ public class PosterController
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
 
-    @PostMapping("/postImage")
-    public ResponseEntity<String> saveUploadedImages(@RequestParam("image") MultipartFile image )
-    {
-
-        try
-        {
-            Byte[] bytes = new Byte[image.getBytes().length]; //opretter nyt byteArray
-            int i = 0;
-            for (byte b : image.getBytes())
-            {
-                bytes[i++] = b;
-            }
-
-        Image imageEntity = new Image(bytes);
-        imageService.saveImage(imageEntity);
-
-        return ResponseEntity.status(HttpStatus.OK).body("Image uploaded successfully");
-    }catch(IOException e){
-           e.printStackTrace();
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving Image");
-       }
-    } //
 
 
 

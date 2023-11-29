@@ -12,31 +12,31 @@ public class Image
     private Poster poster;
     @Lob
     @Column(length = 20971520)
-    private Byte[] Byte_img;
+    private byte[] byte_img;
 
     public Image(){
 
     }
 
-    public Image(Byte[] Byte_img){
-        this.Byte_img = Byte_img;
+    public Image(byte[] byte_img){
+        this.byte_img = byte_img;
     }
 
     public Image(int id, Poster poster, Byte[] Byte_img)
     {
         this.id = id;
         this.poster = poster;
-        this.Byte_img = Byte_img;
+        this.byte_img = byte_img;
     }
 
-    public Byte[] getByte_img()
+    public byte[] getByte_img()
     {
-        return Byte_img;
+        return byte_img;
     }
 
-    public void setByte_img(Byte[] Byte_img)
+    public void setByte_img(byte[] byte_img)
     {
-        this.Byte_img = Byte_img;
+        this.byte_img = byte_img;
     }
 
     public int getId()
@@ -60,7 +60,7 @@ public class Image
     }
 
 
-    public void setByte_img(byte[] bytes)
+    public void setbyte_img(byte[] bytes)
     {
     }
 }
