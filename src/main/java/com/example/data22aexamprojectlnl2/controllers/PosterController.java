@@ -33,12 +33,10 @@ import java.util.Optional;
 public class PosterController
 {
     @Autowired
-
     PosterRepository posterRepository;
     @Autowired
     PosterService posterService;
     @Autowired
-
     ImageService imageService;
     @Autowired
     ImageRepository imageRepository;
@@ -54,7 +52,6 @@ public class PosterController
     @PostMapping("/postImage")
     public ResponseEntity<String> saveUploadedImages(@RequestParam("image") MultipartFile image )
     {
-
         try
         {
             Byte[] bytes = new Byte[image.getBytes().length]; //opretter nyt byteArray
