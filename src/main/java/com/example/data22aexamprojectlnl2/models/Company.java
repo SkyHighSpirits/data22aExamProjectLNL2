@@ -12,11 +12,6 @@ public class Company
     private String company_Title;
     private String company_Description;
     private String CVR;
-
-
-
-
-
     private String telephone;
 
     public Company(){
