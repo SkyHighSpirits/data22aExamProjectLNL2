@@ -35,8 +35,9 @@ import java.util.Optional;
 @Controller
 public class PosterController
 {
-    @Autowired
+    final PasswordHashingService passwordHashing = new PasswordHashingService();
 
+    @Autowired
     PosterRepository posterRepository;
     @Autowired
     PosterService posterService;
@@ -48,6 +49,7 @@ public class PosterController
 
     @Autowired
     SecurityService securityService;
+
 
     @GetMapping("/getImages")
     public ResponseEntity<List<Image>> getAllImagesByPosterId(@RequestParam("poster_id") int poster_id)
