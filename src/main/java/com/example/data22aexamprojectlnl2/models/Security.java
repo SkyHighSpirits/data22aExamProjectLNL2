@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Security {
 
+    //Security er til at tjekke username og password
     @Id
     private int id;
     private String username;
