@@ -4,9 +4,7 @@ import com.example.data22aexamprojectlnl2.models.Image;
 import com.example.data22aexamprojectlnl2.repositories.ImageRepository;
 import com.example.data22aexamprojectlnl2.services.ImageService;
 import com.example.data22aexamprojectlnl2.models.Poster;
-import com.example.data22aexamprojectlnl2.repositories.ImageRepository;
 import com.example.data22aexamprojectlnl2.repositories.PosterRepository;
-import com.example.data22aexamprojectlnl2.services.ImageService;
 import com.example.data22aexamprojectlnl2.services.PosterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -81,4 +82,25 @@ public class PosterController
         }
     }
 
+    @GetMapping("/getPosts")
+    public ResponseEntity<List<Map<String, Object>>> getAllPosts() {
+        try {
+            List<Map<String, Object>> result = new ArrayList<>();
+
+            for (Poster poster : posterRepository.findAll()) {
+                Map<String, Object> posterInfo = new HashMap<>();
+                posterInfo.put("poster", poster);
+
+                // Henter billeder ved hjælp af imageService
+                List<Image> posterImages = imageService.getImagesByPosterId(poster.getId());
+                posterInfo.put("images", posterImages);
+
+                result.add(posterInfo);
+            }
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

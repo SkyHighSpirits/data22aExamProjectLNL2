@@ -8,4 +8,6 @@ import java.util.List;
 public interface ImageRepository extends JpaRepository<Image, Integer> {
     // Du kan tilføje egne metoder her, hvis nødvendigt.
     List<Image> getImagesByPosterId(int poster_id);
+
+    List<Image> findByPosterId(int id);
 }
