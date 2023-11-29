@@ -54,10 +54,4 @@ public class CompanyServiceImpl implements CompanyService {
     public void deleteCompany(int id) {
         companyRepository.deleteById(id);
     }
-
-    @Override
-    public Optional<Company> getCompanyByUsernameAndPassword(String username, String password) {
-        Optional<Company> foundCompany = getCompanyByUsernameAndPassword(username, password);
-        return foundCompany;
-    }
 }

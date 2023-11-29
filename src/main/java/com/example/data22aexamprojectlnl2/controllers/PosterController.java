@@ -3,11 +3,9 @@ package com.example.data22aexamprojectlnl2.controllers;
 import com.example.data22aexamprojectlnl2.models.Company;
 import com.example.data22aexamprojectlnl2.models.Image;
 import com.example.data22aexamprojectlnl2.models.Poster;
+import com.example.data22aexamprojectlnl2.models.Security;
 import com.example.data22aexamprojectlnl2.repositories.ImageRepository;
-import com.example.data22aexamprojectlnl2.services.CompanyService;
-import com.example.data22aexamprojectlnl2.services.ImageService;
-import com.example.data22aexamprojectlnl2.services.PasswordHashingService;
-import com.example.data22aexamprojectlnl2.services.PosterService;
+import com.example.data22aexamprojectlnl2.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +33,9 @@ public class PosterController
     PosterService posterService;
     @Autowired
     CompanyService companyService;
+
+    @Autowired
+    SecurityService securityService;
 
     @GetMapping("/getImages")
     public ResponseEntity<List<Image>> getAllImagesByPosterId(@RequestParam("poster_id") int poster_id)
@@ -72,8 +73,8 @@ public class PosterController
                                                           @RequestParam("password") String password) {
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
-        Optional<Company> checkCompany = companyService.getCompanyByUsernameAndPassword(hashedUsername, hashedPassword);
-        if(checkCompany.isPresent()) {
+        Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        if(checkSecurity.isPresent()) {
             Optional<Poster> checkPoster = posterService.getPosterById(poster_id);
             if (checkPoster.isPresent()) {
                 posterService.deletePoster(poster_id);

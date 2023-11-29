@@ -10,6 +10,4 @@ public interface CompanyService {
     Company getCompanyById(int id);
     Company updateCompany(Company company, int id);
     void deleteCompany(int id);
-
-    Optional<Company> getCompanyByUsernameAndPassword(String username, String password);
 }

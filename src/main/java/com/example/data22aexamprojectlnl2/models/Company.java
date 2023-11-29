@@ -13,10 +13,6 @@ public class Company
     private String company_Description;
     private int CVR;
 
-    private String username;
-
-    private String password;
-
 
     public Company(){
 
@@ -70,19 +66,5 @@ public class Company
         this.CVR = CVR;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
