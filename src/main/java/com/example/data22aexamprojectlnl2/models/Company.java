@@ -65,6 +65,7 @@ public class Company
         this.CVR = CVR;
     }
 
+
     public String getTelephone() {
         return telephone;
     }
