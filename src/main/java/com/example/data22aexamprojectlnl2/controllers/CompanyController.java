@@ -41,6 +41,8 @@ public class CompanyController
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+
+        System.out.println("We got this far1");
         if(checkSecurity.isPresent())
         {
             Company updatedCompany = new Company();
@@ -48,11 +50,13 @@ public class CompanyController
             updatedCompany.setCompany_Description(company_description);
             updatedCompany.setCVR(cvr);
             updatedCompany.setTelephone(telephone);
+            System.out.println("We got this far2");
             companyService.updateCompany(updatedCompany, 1);
+            System.out.println("We got this far3");
 
             return ResponseEntity.ok("Company information updated successfully");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Wrong username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/company")

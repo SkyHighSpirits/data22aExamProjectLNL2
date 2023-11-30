@@ -1,8 +1,11 @@
 package com.example.data22aexamprojectlnl2.services;
 
+import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Service
 public class PasswordHashingService {
 
     public String doHashing(String password) {

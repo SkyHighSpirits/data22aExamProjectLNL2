@@ -21,12 +21,12 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public Security saveSecurity(Security security) {
-        return null;
+        return securityRepository.save(security);
     }
 
     @Override
     public Optional<Security> getSecurityByUsernameAndPassword(String username, String password) {
-        Optional<Security> foundSecurity = getSecurityByUsernameAndPassword(username, password);
+        Optional<Security> foundSecurity = securityRepository.findByUsernameAndPassword(username, password);
         return foundSecurity;
     }
 

@@ -75,7 +75,7 @@ public class PosterController
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Poster not found");
             }
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Wrong username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
