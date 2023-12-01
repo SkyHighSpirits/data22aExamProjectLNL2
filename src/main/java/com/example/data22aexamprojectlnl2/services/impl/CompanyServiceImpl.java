@@ -43,6 +43,7 @@ public class CompanyServiceImpl implements CompanyService {
             existingCompany.setCompany_Title(updatedCompany.getCompany_Title());
             existingCompany.setCompany_Description(updatedCompany.getCompany_Description());
             existingCompany.setCVR(updatedCompany.getCVR());
+            existingCompany.setTelephone(updatedCompany.getTelephone());
             return companyRepository.save(existingCompany);
         } else {
             // Håndter situation, hvor firmaet ikke findes
