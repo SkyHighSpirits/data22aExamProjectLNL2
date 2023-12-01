@@ -1,13 +1,14 @@
 package com.example.data22aexamprojectlnl2.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Image
 {   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "poster_id")  // i tvivl om der skal oprettes en relation i Poster classen til det her da der ikke skal anvendes kald den anden vej
     private Poster poster;
     @Lob

@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@CrossOrigin("*")
+@CrossOrigin
 @Controller
 public class PosterController
 {
@@ -69,6 +69,9 @@ public class PosterController
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
         if(checkSecurity.isPresent()) {
             Optional<Poster> checkPoster = posterService.getPosterById(poster_id);
+            checkPoster.get().setOperation(null);
+            posterService.savePoster(checkPoster.get());
+            checkPoster = posterService.getPosterById(poster_id);
             if (checkPoster.isPresent()) {
                 posterService.deletePoster(poster_id);
                 return ResponseEntity.ok("Poster deleted");
@@ -80,6 +83,7 @@ public class PosterController
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
 
     // dette er faktisk en /postPost endpoint. der skal tilføjes Description og Titel.
     @PostMapping("/createPost")
@@ -93,6 +97,7 @@ public class PosterController
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        System.out.println(checkSecurity.isPresent());
         if(checkSecurity.isPresent()) {
             try {
                 // Create a new Poster
@@ -102,7 +107,6 @@ public class PosterController
 
                 // Save the Poster entity
                 Poster savedPoster = posterService.savePoster(poster);
-
                 // Save the associated images
                 for (MultipartFile imageFile : images) {
                     Image image = new Image();
@@ -110,13 +114,13 @@ public class PosterController
                     image.setPoster(savedPoster);
                     imageService.saveImage(image);
                 }
-
                 return ResponseEntity.status(HttpStatus.OK).body("Poster and images created successfully");
             } catch (IOException e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating poster and images");
             }
         }
+        System.out.println("Appearently the password was wrong");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 

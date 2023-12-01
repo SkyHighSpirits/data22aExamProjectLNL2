@@ -1,4 +1,5 @@
 package com.example.data22aexamprojectlnl2.models;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -8,8 +9,10 @@ public class Poster
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
-    @JoinColumn(name = "Operation_id", unique = true) // sætter foreign key, fortæller hvad den hedder i databasen, og siger at den SKAL være unik
+    @JoinColumn(name = "Operation_id") // sætter foreign key, fortæller hvad den hedder i databasen, og siger at den SKAL være unik
     private Operation operation;
+    @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
     private String poster_Title;
     private String poster_Description;
 
