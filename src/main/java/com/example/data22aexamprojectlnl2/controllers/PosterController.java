@@ -36,20 +36,18 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@CrossOrigin
+@CrossOrigin("*")
 @Controller
 public class PosterController
 {
     final PasswordHashingService passwordHashing = new PasswordHashingService();
 
     @Autowired
-    private PosterRepository posterRepository;
+    PosterRepository posterRepository;
     @Autowired
-    private PosterService posterService;
+    PosterService posterService;
     @Autowired
-    private ImageService imageService;
-    @Autowired
-    private ImageRepository imageRepository;
+    ImageService imageService;
 
     @Autowired
     SecurityService securityService;
@@ -63,7 +61,7 @@ public class PosterController
 
 
     @DeleteMapping("/deletePoster")
-    public ResponseEntity<String> deleterPosterByPosterId(@RequestParam("poster_id") int poster_id,
+    public ResponseEntity<String> deletePosterByPosterId(@RequestParam("poster_id") int poster_id,
                                                           @RequestParam("username") String username,
                                                           @RequestParam("password") String password) {
         String hashedUsername = passwordHashing.doHashing(username);
@@ -78,6 +76,7 @@ public class PosterController
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Poster not found");
             }
         } else {
+            System.out.println("The password must have been wrong");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
@@ -86,29 +85,39 @@ public class PosterController
     @PostMapping("/createPost")
     public ResponseEntity<String> createPoster(@RequestParam("title") String title,
                                                @RequestParam("description") String description,
-                                               @RequestParam("images") MultipartFile[] images) {
-        try {
-            // Create a new Poster
-            Poster poster = new Poster();
-            poster.setPoster_Title(title);
-            poster.setPoster_Description(description);
+                                               @RequestParam("images") MultipartFile[] images,
+                                               @RequestParam("username") String username,
+                                               @RequestParam("password") String password
+    ){
 
-            // Save the Poster entity
-            Poster savedPoster = posterService.savePoster(poster);
+        String hashedUsername = passwordHashing.doHashing(username);
+        String hashedPassword = passwordHashing.doHashing(password);
+        Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        if(checkSecurity.isPresent()) {
+            try {
+                // Create a new Poster
+                Poster poster = new Poster();
+                poster.setPoster_Title(title);
+                poster.setPoster_Description(description);
 
-            // Save the associated images
-            for (MultipartFile imageFile : images) {
-                Image image = new Image();
-                image.setByte_img(imageFile.getBytes());
-                image.setPoster(savedPoster);
-                imageService.saveImage(image);
+                // Save the Poster entity
+                Poster savedPoster = posterService.savePoster(poster);
+
+                // Save the associated images
+                for (MultipartFile imageFile : images) {
+                    Image image = new Image();
+                    image.setByte_img(imageFile.getBytes());
+                    image.setPoster(savedPoster);
+                    imageService.saveImage(image);
+                }
+
+                return ResponseEntity.status(HttpStatus.OK).body("Poster and images created successfully");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating poster and images");
             }
-
-            return ResponseEntity.status(HttpStatus.OK).body("Poster and images created successfully");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating poster and images");
         }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/getPosts")
@@ -133,6 +142,36 @@ public class PosterController
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/getPostsPwd")
+    public ResponseEntity<List<Map<String, Object>>> getAllPostsIfPassword(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password
+    ) {
+        String hashedUsername = passwordHashing.doHashing(username);
+        String hashedPassword = passwordHashing.doHashing(password);
+        Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        if(checkSecurity.isPresent()) {
+            try {
+                List<Map<String, Object>> result = new ArrayList<>();
+
+                for (Poster poster : posterRepository.findAll()) {
+                    Map<String, Object> posterInfo = new HashMap<>();
+                    posterInfo.put("poster", poster);
+
+                    List<Image> posterImages = imageService.getImagesByPosterId(poster.getId());
+                    posterInfo.put("images", posterImages);
+
+                    result.add(posterInfo);
+                }
+
+                return ResponseEntity.ok(result);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     // Eventuelle andre metoder...
