@@ -1,8 +1,11 @@
 package com.example.data22aexamprojectlnl2.controllers;
 
 import com.example.data22aexamprojectlnl2.models.Operation;
+import com.example.data22aexamprojectlnl2.models.Security;
 import com.example.data22aexamprojectlnl2.services.OperationService;
+import com.example.data22aexamprojectlnl2.services.PasswordHashingService;
 import com.example.data22aexamprojectlnl2.services.SecurityService;
+import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,8 @@ import java.util.Optional;
 @Controller
 public class OperationsController {
 
+
+    final PasswordHashingService passwordHashing = new PasswordHashingService();
     @Autowired
     OperationService operationService;
 
@@ -37,9 +43,33 @@ public class OperationsController {
     }
 
     @PostMapping("/createOperation")
-    public ResponseEntity<String> createOperation()
+    public ResponseEntity<String> createOperation(@RequestParam("operation_name") String operationName,
+                                                  @RequestParam("operation_description") String operationDescription,
+                                                  @RequestParam("username") String username,
+                                                  @RequestParam("password") String password)
     {
-        return null;
+        String hashedUsername = passwordHashing.doHashing(username);
+        String hashedPassword = passwordHashing.doHashing(password);
+        Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        System.out.println(checkSecurity.isPresent());
+        if (checkSecurity.isPresent())
+        {
+            try
+            {
+
+                Operation operation = new Operation();
+                operation.setOperation_Name(operationName);
+                operation.setOperation_Desription(operationDescription);
+
+                operationService.saveOperation(operation);
+
+                return ResponseEntity.status(HttpStatus.OK).body("Operation was created successfully");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating operation");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong username or password");
     }
 
     @GetMapping("/getOperation")

@@ -42,7 +42,7 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public Operation saveOperation(Operation operation)
     {
-        return null;
+        return operationRepository.save(operation);
     }
 
     @Override
