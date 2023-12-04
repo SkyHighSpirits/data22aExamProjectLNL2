@@ -4,15 +4,19 @@ import com.example.data22aexamprojectlnl2.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class EmailController {
+public class EmailController
+{
 
     private final EmailService emailService;
 
     @Autowired
-    public EmailController(EmailService emailService) {
+    public EmailController(EmailService emailService)
+    {
         this.emailService = emailService;
     }
 
@@ -23,7 +27,8 @@ public class EmailController {
             @RequestParam String email,
             @RequestParam String city,
             @RequestParam String about,
-            @RequestParam String message) {
+            @RequestParam String message)
+    {
 
         String to = "dovser.chinastore@gmail.com";
         String subject = about;

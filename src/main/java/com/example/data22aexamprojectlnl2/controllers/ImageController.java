@@ -1,6 +1,5 @@
 package com.example.data22aexamprojectlnl2.controllers;
 
-import com.example.data22aexamprojectlnl2.models.Company;
 import com.example.data22aexamprojectlnl2.models.Image;
 import com.example.data22aexamprojectlnl2.models.Security;
 import com.example.data22aexamprojectlnl2.services.CompanyService;
@@ -17,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @Controller
-public class ImageController {
+public class ImageController
+{
 
 
     final PasswordHashingService passwordHashing = new PasswordHashingService();
@@ -32,19 +32,24 @@ public class ImageController {
     @DeleteMapping("/deleteImage")
     public ResponseEntity<String> deleteImageById(@RequestParam("image_id") int image_id,
                                                   @RequestParam("username") String username,
-                                                  @RequestParam("password") String password){
+                                                  @RequestParam("password") String password)
+    {
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
-        if(checkSecurity.isPresent()) {
+        if (checkSecurity.isPresent())
+        {
             Optional<Image> foundImage = imageService.getImageById(image_id);
-            if (foundImage.isPresent()) {
+            if (foundImage.isPresent())
+            {
                 imageService.deleteImage(image_id);
                 return ResponseEntity.ok("Image was deleted");
-            } else {
+            } else
+            {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image was not found");
             }
-        }else {
+        } else
+        {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Wrong username or password");
         }
     }

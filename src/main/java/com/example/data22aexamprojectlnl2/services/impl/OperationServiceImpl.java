@@ -15,7 +15,8 @@ public class OperationServiceImpl implements OperationService {
     private final OperationRepository operationRepository;
 
     @Autowired
-    public OperationServiceImpl(OperationRepository operationRepository) {
+    public OperationServiceImpl(OperationRepository operationRepository)
+    {
         this.operationRepository = operationRepository;
     }
 
@@ -27,22 +28,26 @@ public class OperationServiceImpl implements OperationService {
     */
 
     @Override
-    public Optional<Operation> getOperationById(int id) {
+    public Optional<Operation> getOperationById(int id)
+    {
         return operationRepository.findById(id);
     }
 
     @Override
-    public List<Operation> getAllOperations() {
+    public List<Operation> getAllOperations()
+    {
         return operationRepository.findAll();
     }
 
     @Override
-    public Operation saveOperation(Operation operation) {
+    public Operation saveOperation(Operation operation)
+    {
         return null;
     }
 
     @Override
-    public void deleteOperation(int id) {
+    public void deleteOperation(int id)
+    {
 
     }
 }

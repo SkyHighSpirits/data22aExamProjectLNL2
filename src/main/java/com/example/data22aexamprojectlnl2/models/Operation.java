@@ -3,9 +3,11 @@ package com.example.data22aexamprojectlnl2.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+
 @Entity
 public class Operation
-{   @Id
+{
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Operation_Id;
     private String Operation_Name;
@@ -15,7 +17,8 @@ public class Operation
     @OneToOne(mappedBy = "operation")
     private Poster poster;
 
-    public Operation(){
+    public Operation()
+    {
 
     }
 
