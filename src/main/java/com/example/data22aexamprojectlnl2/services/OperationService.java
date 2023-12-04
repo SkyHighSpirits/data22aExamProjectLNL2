@@ -10,5 +10,6 @@ public interface OperationService {
     Operation saveOperation(Operation operation);
     Optional<Operation> getOperationById(int id);
     List<Operation> getAllOperations();
+    Operation updateOperation(Operation updatedOperation, int id);
     void deleteOperation(int id);
 }
