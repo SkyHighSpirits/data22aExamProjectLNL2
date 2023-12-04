@@ -4,11 +4,12 @@ import com.example.data22aexamprojectlnl2.models.Operation;
 import com.example.data22aexamprojectlnl2.repositories.OperationRepository;
 import com.example.data22aexamprojectlnl2.services.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@org.springframework.stereotype.Service
+@Service
 public class OperationServiceImpl implements OperationService {
 
     private final OperationRepository operationRepository;
