@@ -4,9 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Data22aExamProjectLnl2Application {
+public class Data22aExamProjectLnl2Application
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SpringApplication.run(Data22aExamProjectLnl2Application.class, args);
     }
 

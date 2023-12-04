@@ -5,11 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import java.time.*;
+
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 @Service
-public class EmailService {
+public class EmailService
+{
 
     LocalTime lastRequestTime;
     private long timepassed = 4;
@@ -19,30 +21,36 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
 
-    public EmailService(JavaMailSender javaMailSender) {
+    public EmailService(JavaMailSender javaMailSender)
+    {
         this.javaMailSender = javaMailSender;
     }
 
-    public ResponseEntity sendEmail(String to, String subject, String body) {
+    public ResponseEntity sendEmail(String to, String subject, String body)
+    {
 
         LocalTime now = LocalTime.now();
 
-        if(lastRequestTime != null)
+        if (lastRequestTime != null)
         {
             timepassed = lastRequestTime.until(now, ChronoUnit.SECONDS);
         }
 
-        if(timepassed > ratelimit)
+        if (timepassed > ratelimit)
         {
-            try {
+            try
+            {
                 // Validate input parameters
-                if (to == null || to.isEmpty()) {
+                if (to == null || to.isEmpty())
+                {
                     throw new IllegalArgumentException("Recipient email address is required.");
                 }
-                if (subject == null || subject.isEmpty()) {
+                if (subject == null || subject.isEmpty())
+                {
                     throw new IllegalArgumentException("Email subject is required.");
                 }
-                if (body == null || body.isEmpty()) {
+                if (body == null || body.isEmpty())
+                {
                     throw new IllegalArgumentException("Email body is required.");
                 }
 
@@ -57,7 +65,8 @@ public class EmailService {
                 //save the last timestamp for when a message was sent
                 lastRequestTime = LocalTime.now();
                 return new ResponseEntity<>(HttpStatus.OK);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 // Handle exceptions and log errors
                 // You can log the error message using a logging framework like Log4j or SLF4J
                 e.printStackTrace();
