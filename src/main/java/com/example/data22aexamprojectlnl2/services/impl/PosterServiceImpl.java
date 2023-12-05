@@ -10,32 +10,38 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PosterServiceImpl implements PosterService {
+public class PosterServiceImpl implements PosterService
+{
 
     private final PosterRepository posterRepository;
 
     @Autowired
-    public PosterServiceImpl(PosterRepository posterRepository) {
+    public PosterServiceImpl(PosterRepository posterRepository)
+    {
         this.posterRepository = posterRepository;
     }
 
     @Override
-    public Poster savePoster(Poster poster) {
+    public Poster savePoster(Poster poster)
+    {
         return posterRepository.save(poster);
     }
 
     @Override
-    public Optional<Poster> getPosterById(int id) {
+    public Optional<Poster> getPosterById(int id)
+    {
         return posterRepository.findById(id);
     }
 
     @Override
-    public List<Poster> getAllPosters() {
+    public List<Poster> getAllPosters()
+    {
         return posterRepository.findAll();
     }
 
     @Override
-    public void deletePoster(int id) {
+    public void deletePoster(int id)
+    {
         posterRepository.deleteById(id);
     }
 }

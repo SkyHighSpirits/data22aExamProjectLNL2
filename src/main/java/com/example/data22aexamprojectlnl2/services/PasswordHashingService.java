@@ -6,10 +6,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class PasswordHashingService {
+public class PasswordHashingService
+{
 
-    public String doHashing(String password) {
-        try {
+    public String doHashing(String password)
+    {
+        try
+        {
             //messageDigest bliver tilknyttet en specifik algoritme den skal bruge. Her bruges MD5 algoritmen(Message Digest)
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             //password bliver lavet om til en omgang bytes
@@ -24,12 +27,14 @@ public class PasswordHashingService {
             StringBuilder sb = new StringBuilder();
             //dette bliver gjort en af gangen med et for each loop, hvor appender sb stringen
             //%02x er en formatering form
-            for (byte b : resultByteArray) {
+            for (byte b : resultByteArray)
+            {
                 sb.append(String.format("%02x", b));
             }
 
             return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e)
+        {
             e.printStackTrace();
         }
         return "";

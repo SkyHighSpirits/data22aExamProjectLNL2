@@ -2,7 +2,6 @@ package com.example.data22aexamprojectlnl2.controllers;
 
 import com.example.data22aexamprojectlnl2.models.Company;
 import com.example.data22aexamprojectlnl2.models.Security;
-import com.example.data22aexamprojectlnl2.repositories.CompanyRepository;
 import com.example.data22aexamprojectlnl2.services.CompanyService;
 import com.example.data22aexamprojectlnl2.services.PasswordHashingService;
 import com.example.data22aexamprojectlnl2.services.SecurityService;
@@ -35,13 +34,14 @@ public class CompanyController
             @RequestParam String telephone,
             @RequestParam String username,
             @RequestParam String password
-    ) {
+    )
+    {
 
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
 
-        if(checkSecurity.isPresent())
+        if (checkSecurity.isPresent())
         {
             Company updatedCompany = new Company();
             updatedCompany.setCompany_Title(company_title);
@@ -58,11 +58,14 @@ public class CompanyController
     }
 
     @GetMapping("/company")
-    public ResponseEntity<Company> getCompany() {
+    public ResponseEntity<Company> getCompany()
+    {
         Company company = companyService.getCompanyById(1);
-        if (company != null) {
+        if (company != null)
+        {
             return ResponseEntity.ok(company);
-        } else {
+        } else
+        {
             return ResponseEntity.notFound().build();
         }
     }
