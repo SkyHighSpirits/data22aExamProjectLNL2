@@ -21,6 +21,7 @@ public class CorsConfig
 
         // Specify allowed origins explicitly (add your frontend origin(s) here)
         config.addAllowedOrigin("http://localhost:63342");
+        config.addAllowedOrigin("http://127.0.0.1:5500");
 
         // Allow all headers and methods
         config.addAllowedHeader("*");

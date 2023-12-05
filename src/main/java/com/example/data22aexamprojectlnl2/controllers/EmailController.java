@@ -4,10 +4,12 @@ import com.example.data22aexamprojectlnl2.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@CrossOrigin
 @Controller
 public class EmailController
 {
@@ -20,6 +22,7 @@ public class EmailController
         this.emailService = emailService;
     }
 
+    //PostMapping that send a email to default email using the emailService
     @PostMapping("/send-email")
     @ResponseBody
     public ResponseEntity sendEmail(
