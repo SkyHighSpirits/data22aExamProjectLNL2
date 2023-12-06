@@ -62,6 +62,6 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public void deleteOperation(int id)
     {
-
+        operationRepository.delete(operationRepository.findById(id).get());
     }
 }
