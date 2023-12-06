@@ -110,13 +110,13 @@ public class OperationsController {
 
                 operationService.saveOperation(operation);
 
-                return ResponseEntity.status(HttpStatus.OK).body("Operation was created successfully");
+                return ResponseEntity.status(HttpStatus.OK).build();
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating operation");
             }
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/getOperation")
