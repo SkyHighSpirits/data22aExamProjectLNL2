@@ -12,6 +12,6 @@ public interface OperationService
     Optional<Operation> getOperationById(int id);
 
     List<Operation> getAllOperations();
-
+    Operation updateOperation(Operation updatedOperation, int id);
     void deleteOperation(int id);
 }

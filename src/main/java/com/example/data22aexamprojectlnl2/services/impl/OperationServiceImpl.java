@@ -1,5 +1,6 @@
 package com.example.data22aexamprojectlnl2.services.impl;
 
+import com.example.data22aexamprojectlnl2.models.Company;
 import com.example.data22aexamprojectlnl2.models.Operation;
 import com.example.data22aexamprojectlnl2.repositories.OperationRepository;
 import com.example.data22aexamprojectlnl2.services.OperationService;
@@ -31,6 +32,19 @@ public class OperationServiceImpl implements OperationService {
 
     //retrieves an operation based on an id
     @Override
+    public Operation updateOperation(Operation updatedOperation, int id) {
+        Operation existingOperation = getOperationById(id).get();
+        if (existingOperation != null) {
+            existingOperation.setOperation_Name(updatedOperation.getOperation_Name());
+            existingOperation.setOperation_Desription(updatedOperation.getOperation_Desription());
+            return operationRepository.save(existingOperation);
+        } else {
+            // handle not found
+            return null; // or throw exception
+        }
+    }
+
+    @Override
     public Optional<Operation> getOperationById(int id)
     {
         return operationRepository.findById(id);
@@ -54,6 +68,6 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public void deleteOperation(int id)
     {
-
+        operationRepository.delete(operationRepository.findById(id).get());
     }
 }
