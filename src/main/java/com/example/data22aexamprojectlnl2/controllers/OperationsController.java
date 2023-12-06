@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+@CrossOrigin
 @Controller
 public class OperationsController {
 
@@ -29,7 +29,7 @@ public class OperationsController {
     @Autowired
     SecurityService securityService;
 
-    @PostMapping("/editOperation")
+    @PutMapping("/editOperation")
     public ResponseEntity<String> editOperation(
             @RequestParam int id,
             @RequestParam String operationName,
@@ -122,5 +122,25 @@ public class OperationsController {
         return new ResponseEntity<>(operations, HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/getAllOperationsIfPassword")
+    public ResponseEntity<List<Operation>> getAllOperationsIfPassword(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password
+    )
+    {
+        String hashedUsername = passwordHashing.doHashing(username);
+        String hashedPassword = passwordHashing.doHashing(password);
+        Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        if(checkSecurity.isPresent()) {
 
+            List<Operation> operations;
+
+            operations = operationService.getAllOperations();
+            if (!operations.isEmpty() || operations != null) {
+                return new ResponseEntity<>(operations, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(operations, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 }
