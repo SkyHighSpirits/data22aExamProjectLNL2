@@ -1,19 +1,27 @@
 package com.example.data22aexamprojectlnl2.controllers;
 
 import com.example.data22aexamprojectlnl2.models.Company;
+import com.example.data22aexamprojectlnl2.models.Security;
 import com.example.data22aexamprojectlnl2.services.CompanyService;
 import com.example.data22aexamprojectlnl2.services.SecurityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(CompanyController.class)
@@ -29,7 +37,28 @@ class CompanyControllerTest {
     SecurityService securityService;
 
     @Test
-    void updateCompanyInformationTest() {
+    void updateCompanyInformationTest() throws Exception {
+        // Mock the behavior of companyService
+        Mockito.when(securityService.getSecurityByUsernameAndPassword("a3062c20bac83330b0f7ab1b850bdda9", "d23422b17813e5eb024a4f3b4c9d97a5"))
+                .thenReturn(Optional.of(new Security(1, "a3062c20bac83330b0f7ab1b850bdda9", "d23422b17813e5eb024a4f3b4c9d97a5")));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/update-company")
+                        .param("company_title", "Ilsø Construct")
+                        .param("company_description", "Velkommen til Odin's ")
+                        .param("cvr", "12345678")
+                        .param("telephone", "12 34 56 78")
+                        .param("username", "IlsoeAdmin")
+                        .param("password", "0807")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Company information updated successfully"));
+
+        // Verify that updateCompany method was called with the correct parameters
+        Mockito.verify(companyService).updateCompany(
+                Mockito.any(Company.class),
+                Mockito.eq(1) // Assuming 1 is the expected ID
+        );
     }
 
     @Test
