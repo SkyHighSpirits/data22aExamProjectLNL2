@@ -147,7 +147,7 @@ class OperationsControllerTest {
     @Test
     void getAllOperationsIfPassword() throws Exception {
     }
-    
+
      */
 
 }
