@@ -136,7 +136,7 @@ public class OperationsController {
         List<Operation> operations;
 
         operations = operationService.getAllOperations();
-        if(operations.isEmpty() || operations == null)
+        if(!operations.isEmpty() || operations != null)
         {
             return new ResponseEntity<>(operations, HttpStatus.OK);
         }
