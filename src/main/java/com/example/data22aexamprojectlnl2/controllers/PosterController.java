@@ -25,6 +25,8 @@ import java.util.*;
 @Controller
 public class PosterController
 {
+
+    //Autowires and objects imported to get access to functions in classes and interfaces connected to the JPA repository
     final PasswordHashingService passwordHashing = new PasswordHashingService();
 
     @Autowired
@@ -37,7 +39,7 @@ public class PosterController
     @Autowired
     SecurityService securityService;
 
-
+    //GetMapping to get images specified by a posterid
     @GetMapping("/getImages")
     public ResponseEntity<List<Image>> getAllImagesByPosterId(@RequestParam("poster_id") int poster_id)
     {
@@ -46,22 +48,28 @@ public class PosterController
     }
 
 
+    //DeleteMapping to delete a poster specified by a posterid
     @DeleteMapping("/deletePoster")
     public ResponseEntity<String> deletePosterByPosterId(@RequestParam("poster_id") int poster_id,
                                                          @RequestParam("username") String username,
                                                          @RequestParam("password") String password)
     {
+        //Checks the admin login before performing the update. If not correct, will give error message
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        //If the security object is present the username and password was correct
         if (checkSecurity.isPresent())
         {
+            //Creates an optional poster to check if the poster that was found is present
+            //The operation operation is set to null to avoid an error
             Optional<Poster> checkPoster = posterService.getPosterById(poster_id);
             checkPoster.get().setOperation(null);
             posterService.savePoster(checkPoster.get());
             checkPoster = posterService.getPosterById(poster_id);
             if (checkPoster.isPresent())
             {
+                //If it is present it will be deleted
                 posterService.deletePoster(poster_id);
                 return ResponseEntity.ok("Poster deleted");
             } else
@@ -76,7 +84,7 @@ public class PosterController
     }
 
 
-    // dette er faktisk en /postPost endpoint. der skal tilføjes Description og Titel.
+    // PostMapping som opretter en poster i databasen med de påkrævet attributter
     @PostMapping("/createPost")
     public ResponseEntity<String> createPoster(@RequestParam("title") String title,
                                                @RequestParam("description") String description,
@@ -85,11 +93,12 @@ public class PosterController
                                                @RequestParam("password") String password
     )
     {
-
+        //Checks the admin login before performing the creation. If not correct, will give error message
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
         System.out.println(checkSecurity.isPresent());
+        //If the security object is present the username and password was correct
         if (checkSecurity.isPresent())
         {
             try
@@ -120,6 +129,7 @@ public class PosterController
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    //GetMapping that retrieves all the posts in the database with no check of the username and password
     @GetMapping("/getPosts")
     public ResponseEntity<List<Map<String, Object>>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
@@ -148,15 +158,18 @@ public class PosterController
         }
     }
 
+    //GetMapping to get all posts
     @GetMapping("/getPostsPwd")
     public ResponseEntity<List<Map<String, Object>>> getAllPostsIfPassword(
             @RequestParam("username") String username,
             @RequestParam("password") String password
     )
     {
+        //Checks the admin login before performing the update. If not correct, will give error message
         String hashedUsername = passwordHashing.doHashing(username);
         String hashedPassword = passwordHashing.doHashing(password);
         Optional<Security> checkSecurity = securityService.getSecurityByUsernameAndPassword(hashedUsername, hashedPassword);
+        //If the security object is present the username and password was correct
         if (checkSecurity.isPresent())
         {
             try

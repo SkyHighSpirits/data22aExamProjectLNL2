@@ -12,6 +12,8 @@ import java.util.Optional;
 public class SecurityServiceImpl implements SecurityService
 {
 
+    //Autowires in the regarding repository to access the JPArepository
+    //All the funtioncs here overrides the functions that was made in the interface regarding each model
     private final SecurityRepository securityRepository;
 
     @Autowired
@@ -20,12 +22,14 @@ public class SecurityServiceImpl implements SecurityService
         this.securityRepository = securityRepository;
     }
 
+    //saves a security object to the database
     @Override
     public Security saveSecurity(Security security)
     {
         return securityRepository.save(security);
     }
 
+    //retrives a security obejct based on a username and password
     @Override
     public Optional<Security> getSecurityByUsernameAndPassword(String username, String password)
     {

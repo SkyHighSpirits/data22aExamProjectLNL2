@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 public class OperationServiceImpl implements OperationService {
 
+    //Autowires in the regarding repository to access the JPArepository
+    //All the funtioncs here overrides the functions that was made in the interface regarding each model
     private final OperationRepository operationRepository;
 
     @Autowired
@@ -28,6 +30,7 @@ public class OperationServiceImpl implements OperationService {
     }
     */
 
+    //retrieves an operation based on an id
     @Override
     public Operation updateOperation(Operation updatedOperation, int id) {
         Operation existingOperation = getOperationById(id).get();
@@ -47,18 +50,21 @@ public class OperationServiceImpl implements OperationService {
         return operationRepository.findById(id);
     }
 
+    //retrieves all operations in the database
     @Override
     public List<Operation> getAllOperations()
     {
         return operationRepository.findAll();
     }
 
+    //saves an operation object to the database
     @Override
     public Operation saveOperation(Operation operation)
     {
         return operationRepository.save(operation);
     }
 
+    //deletes an operation from the database based on an id
     @Override
     public void deleteOperation(int id)
     {

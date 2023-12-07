@@ -12,22 +12,26 @@ import java.util.Optional;
 @Service
 public class CompanyServiceImpl implements CompanyService
 {
-
+    //Autowires in the regarding repository to access the JPArepository
     @Autowired
     private CompanyRepository companyRepository;
 
+    //All the funtioncs here overrides the functions that was made in the interface regarding each model
+    //Saves a company object to the database
     @Override
     public Company saveCompany(Company company)
     {
         return companyRepository.save(company);
     }
 
+    //retrieves all companies from the database
     @Override
     public List<Company> getAllCompanies()
     {
         return companyRepository.findAll();
     }
 
+    //finds a company by an id, if it is present it will retrieve it
     @Override
     public Company getCompanyById(int id)
     {
@@ -42,6 +46,7 @@ public class CompanyServiceImpl implements CompanyService
         }
     }
 
+    //Updates a company with new company information based on a id
     @Override
     public Company updateCompany(Company updatedCompany, int id)
     {
@@ -60,6 +65,7 @@ public class CompanyServiceImpl implements CompanyService
         }
     }
 
+    //deletes a company based on an id
     @Override
     public void deleteCompany(int id)
     {
