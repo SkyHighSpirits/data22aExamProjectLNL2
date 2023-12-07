@@ -1,6 +1,7 @@
 package com.example.data22aexamprojectlnl2.models;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -11,6 +12,8 @@ public class Company
     @Id // ikke nødvendigt at autoincremente, der findes kun en.
     private int id;
     private String company_Title;
+
+    @Column(length = 2000)
     private String company_Description;
     private String CVR;
     private String telephone;
