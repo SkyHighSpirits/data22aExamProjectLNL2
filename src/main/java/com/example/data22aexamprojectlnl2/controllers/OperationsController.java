@@ -31,10 +31,10 @@ public class OperationsController {
 
     final PasswordHashingService passwordHashing = new PasswordHashingService();
     @Autowired
-    OperationService operationService;
+    private OperationService operationService;
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     //PostMapping that will update an operation in the database
 
