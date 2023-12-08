@@ -29,6 +29,8 @@ class EmailControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+
+
     /*
     @Test
     void sendEmailTest() throws Exception {
@@ -57,6 +59,6 @@ class EmailControllerTest {
                 Mockito.eq("This is a test message.\n\nBeskeden blev sendt af John Doe fra Anytown\nSvar kan sendes på hans email adresse: john.doe@example.com\n")
         );
     }
-    
+
      */
 }

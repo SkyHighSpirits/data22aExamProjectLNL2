@@ -4,6 +4,7 @@ import com.example.data22aexamprojectlnl2.models.Operation;
 import com.example.data22aexamprojectlnl2.models.Security;
 import com.example.data22aexamprojectlnl2.services.OperationService;
 import com.example.data22aexamprojectlnl2.services.SecurityService;
+import com.example.data22aexamprojectlnl2.services.impl.SecurityServiceImpl;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,9 +34,9 @@ class OperationsControllerTest {
 
     @MockBean
     private OperationService operationService;
-
     @MockBean
     private SecurityService securityService;
+    
 
     @Test
     void editOperationTest() throws Exception{
@@ -87,7 +88,7 @@ class OperationsControllerTest {
                 Mockito.eq(1)
         );
     }
-/*
+
     @Test
     void createOperationTest() throws Exception {
         //Mock the behavior of the companyService
@@ -110,7 +111,7 @@ class OperationsControllerTest {
         );
 
     }
-*/
+
 
 
     /*@Test
