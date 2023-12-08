@@ -26,17 +26,6 @@ public class initData implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception
     {
-        /*Company c1 = new Company();
-        c1.setCompany_Title("Ilsø Construct");
-        c1.setCVR("12345678");
-        c1.setCompany_Description("Velkommen til Odin's Borg");
-        c1.setId(1);
-        c1.setTelephone("12 34 56 78");
-        System.out.println(c1);
-        companyRepository.save(c1);
-
-         */
-
         Security security1 = new Security();
         security1.setId(1);
         String username = passwordHashingService.doHashing("IlsoeAdmin");

@@ -22,21 +22,22 @@ public class EmailController
         this.emailService = emailService;
     }
 
-    //PostMapping that send a email to default email using the emailService
+    //PostMapping that sends an email to default email using the emailService
     @PostMapping("/send-email")
     @ResponseBody
     public ResponseEntity sendEmail(
             @RequestParam String name,
             @RequestParam String email,
+            //@RequestParam String telefon, skal tilføjes
             @RequestParam String city,
             @RequestParam String about,
             @RequestParam String message)
     {
 
-        String to = "dovser.chinastore@gmail.com";
+        String to = "Ilsoecc@outlook.dk";
         String subject = about;
         String body = message + "\n\nBeskeden blev sendt af " + name + " fra " + city +
-                "\nSvar kan sendes på hans email adresse: " + email + "\n";
+                "\nBeskeden kan besvares på email: " + email + "\n";// + "Eller telefon: " + telefon;
 
         return emailService.sendEmail(to, subject, body);
     }
