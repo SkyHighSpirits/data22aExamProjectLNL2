@@ -10,4 +10,5 @@ public interface ImageService {
     Optional<Image> getImageById(int id);
     List<Image> getAllImages();
     void deleteImage(int id);
+    List<Image> getImagesByPosterId(int poster_id);
 }
