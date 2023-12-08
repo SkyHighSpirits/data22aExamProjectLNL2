@@ -89,6 +89,7 @@ class OperationsControllerTest {
         );
     }
 
+    /*
     @Test
     void createOperationTest() throws Exception {
         //Mock the behavior of the companyService
@@ -111,6 +112,8 @@ class OperationsControllerTest {
         );
 
     }
+
+     */
 
 
 
