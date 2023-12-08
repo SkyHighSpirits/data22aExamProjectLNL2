@@ -1,14 +1,17 @@
 package com.example.data22aexamprojectlnl2.services;
 
 import com.example.data22aexamprojectlnl2.models.Operation;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface OperationService {
+public interface OperationService
+{
     Operation saveOperation(Operation operation);
+
     Optional<Operation> getOperationById(int id);
+
     List<Operation> getAllOperations();
+    Operation updateOperation(Operation updatedOperation, int id);
     void deleteOperation(int id);
 }

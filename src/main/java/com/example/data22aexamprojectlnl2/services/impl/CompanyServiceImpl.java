@@ -10,49 +10,65 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
-
+public class CompanyServiceImpl implements CompanyService
+{
+    //Autowires in the regarding repository to access the JPArepository
     @Autowired
     private CompanyRepository companyRepository;
 
+    //All the funtioncs here overrides the functions that was made in the interface regarding each model
+    //Saves a company object to the database
     @Override
-    public Company saveCompany(Company company) {
+    public Company saveCompany(Company company)
+    {
         return companyRepository.save(company);
     }
 
+    //retrieves all companies from the database
     @Override
-    public List<Company> getAllCompanies() {
+    public List<Company> getAllCompanies()
+    {
         return companyRepository.findAll();
     }
 
+    //finds a company by an id, if it is present it will retrieve it
     @Override
-    public Company getCompanyById(int id) {
+    public Company getCompanyById(int id)
+    {
         Optional<Company> company = companyRepository.findById(id);
-        if (company.isPresent()) {
+        if (company.isPresent())
+        {
             return company.get();
-        } else {
+        } else
+        {
             // Håndter situation, hvor firmaet ikke findes
             return null; // eller kast en exception
         }
     }
 
+    //Updates a company with new company information based on a id
     @Override
-    public Company updateCompany(Company updatedCompany, int id) {
+    public Company updateCompany(Company updatedCompany, int id)
+    {
         Company existingCompany = getCompanyById(id);
-        if (existingCompany != null) {
+        if (existingCompany != null)
+        {
             existingCompany.setCompany_Title(updatedCompany.getCompany_Title());
             existingCompany.setCompany_Description(updatedCompany.getCompany_Description());
             existingCompany.setCVR(updatedCompany.getCVR());
             existingCompany.setTelephone(updatedCompany.getTelephone());
             return companyRepository.save(existingCompany);
-        } else {
+        } else
+        {
             // Håndter situation, hvor firmaet ikke findes
             return null; // eller kast en exception
         }
     }
 
+    //deletes a company based on an id
     @Override
-    public void deleteCompany(int id) {
+    public void deleteCompany(int id)
+    {
         companyRepository.deleteById(id);
     }
 }

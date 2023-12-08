@@ -1,20 +1,25 @@
 package com.example.data22aexamprojectlnl2.models;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 
 @Entity
 public class Company
-{   @Id // ikke nødvendigt at autoincremente, der findes kun en.
+{
+    @Id // ikke nødvendigt at autoincremente, der findes kun en.
     private int id;
     private String company_Title;
+
+    @Column(length = 2000)
     private String company_Description;
     private String CVR;
     private String telephone;
 
-    public Company(){
+    public Company()
+    {
 
     }
 
@@ -61,16 +66,19 @@ public class Company
         return CVR;
     }
 
-    public void setCVR(String CVR) {
+    public void setCVR(String CVR)
+    {
         this.CVR = CVR;
     }
 
 
-    public String getTelephone() {
+    public String getTelephone()
+    {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
+    public void setTelephone(String telephone)
+    {
         this.telephone = telephone;
     }
 
